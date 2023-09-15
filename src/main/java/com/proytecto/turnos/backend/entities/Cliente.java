@@ -15,7 +15,7 @@ public class Cliente implements Serializable {
     private String dni;
     private String telefono;
     private String email;
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente",fetch = FetchType.LAZY)
     private List<Turno> turnos;
 
     public Long getId() {
