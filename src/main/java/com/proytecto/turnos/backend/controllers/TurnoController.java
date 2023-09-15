@@ -5,7 +5,6 @@ import com.proytecto.turnos.backend.entities.Turno;
 import com.proytecto.turnos.backend.services.TurnoService;
 import com.proytecto.turnos.backend.services.TurnoServiceImpl;
 import com.proytecto.turnos.backend.utils.ModelMapperHelper;
-import com.proytecto.turnos.backend.utils.ModelMapperHolder;
 import org.apache.catalina.mapper.Mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
