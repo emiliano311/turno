@@ -5,6 +5,7 @@ import com.proytecto.turnos.backend.Dtos.TurnoDto;
 import com.proytecto.turnos.backend.entities.Cliente;
 import com.proytecto.turnos.backend.entities.Turno;
 import com.proytecto.turnos.backend.services.ClienteServiceImpl;
+import com.proytecto.turnos.backend.services.TurnoServiceImpl;
 import org.apache.coyote.Response;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,17 +25,13 @@ public class ClienteController {
 
     @Autowired
     private ClienteServiceImpl clienteService;
+    @Autowired
+    private TurnoServiceImpl turnoService;
     @GetMapping
     public ResponseEntity<List<ClienteDto>>getAllClientes(){
         ModelMapper modelMapper = new ModelMapper();
 
         List<Cliente> clentes = clienteService.findAll();
-
-        List<ClienteDto> auxlist= new ArrayList<ClienteDto>();
-        for(Cliente cliente : clentes) {
-            ClienteDto clienteAux = modelMapper.map(cliente, ClienteDto.class);
-            auxlist.add(clienteAux);
-        }
         // Mapear turnos a DTOs
         List<ClienteDto> clientesDto = clentes.stream()
                 .map(cliente -> modelMapper.map(cliente, ClienteDto.class))
@@ -70,6 +67,7 @@ public class ClienteController {
         if(cliente.isEmpty()){
             return new ResponseEntity<>( new TurnoDto(), HttpStatus.BAD_REQUEST);
         }
+
         // Crear un nuevo turno
         Turno turno = new Turno();
         turno.setFecha(turnoDto.getFecha());
@@ -77,9 +75,10 @@ public class ClienteController {
         turno.setCliente(cliente.get());
 
         // Guardar el turno
-       // clienteService.modificarCliente(cliente);
+       turnoService.crearTurno(turno);
 
         // Devolver el turno
+        
       return new ResponseEntity<>(modelMapper.map(turno, TurnoDto.class), HttpStatus.CREATED);
     }
 

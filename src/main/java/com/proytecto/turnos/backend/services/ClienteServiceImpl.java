@@ -25,12 +25,8 @@ public class ClienteServiceImpl implements ClienteService{
 
     @Override
     public Cliente nuevoCLiente(Cliente cliente) {
-<<<<<<< Updated upstream
-        //comentariopara agregar
-        return null;
-=======
+
         return clienteRepository.save(cliente);
->>>>>>> Stashed changes
     }
 
     @Override
