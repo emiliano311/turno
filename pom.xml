@@ -11,7 +11,7 @@
 	<groupId>com.proytecto.turnos</groupId>
 	<artifactId>backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>proyecto de turnos</name>
 	<description>turnero adaptable a cualquier empresa</description>
 	<properties>

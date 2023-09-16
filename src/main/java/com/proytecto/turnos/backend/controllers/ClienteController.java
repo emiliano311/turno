@@ -6,6 +6,7 @@ import com.proytecto.turnos.backend.entities.Cliente;
 import com.proytecto.turnos.backend.entities.Turno;
 import com.proytecto.turnos.backend.services.ClienteServiceImpl;
 import com.proytecto.turnos.backend.services.TurnoServiceImpl;
+import com.proytecto.turnos.backend.utils.ModelMapperHelper;
 import org.apache.coyote.Response;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +43,8 @@ public class ClienteController {
 
     @PostMapping
     public ResponseEntity<ClienteDto> crearCliente(@RequestBody ClienteDto clienteDto) {
-        ModelMapper modelMapper = new ModelMapper();
-        Cliente cliente = modelMapper.map(clienteDto,Cliente.class);
-        ClienteDto clienteAux=  modelMapper.map(clienteService.nuevoCLiente(cliente),ClienteDto.class);
+        Cliente cliente = ModelMapperHelper.getModelMapper().map(clienteDto,Cliente.class);
+        ClienteDto clienteAux=  ModelMapperHelper.getModelMapper().map(clienteService.nuevoCLiente(cliente),ClienteDto.class);
         return new ResponseEntity<>(clienteAux,HttpStatus.CREATED);
     }
 
@@ -61,7 +61,6 @@ public class ClienteController {
 
     @PostMapping("/{id}/turnos")
     public ResponseEntity<TurnoDto> agregarTurno(@PathVariable Long id, @RequestBody TurnoDto turnoDto) {
-        ModelMapper modelMapper = new ModelMapper();
         // Obtener el cliente
         Optional<Cliente> cliente = clienteService.findById(id);
         if(cliente.isEmpty()){
@@ -73,13 +72,15 @@ public class ClienteController {
         turno.setFecha(turnoDto.getFecha());
         turno.setHora(turnoDto.getHora());
         turno.setCliente(cliente.get());
-
+        // Cargar la lista de turnos del cliente
         // Guardar el turno
-       turnoService.crearTurno(turno);
+        turnoService.crearTurno(turno);
+        clienteService.modificarCliente(cliente.get());
+        ClienteDto clienteDto = ModelMapperHelper.getModelMapper().map(cliente.get(),ClienteDto.class);
+        TurnoDto turnoAux = ModelMapperHelper.getModelMapper().map(turnoService.crearTurno(turno),TurnoDto.class);
+        turnoAux.setCliente(clienteDto);
 
-        // Devolver el turno
-        
-      return new ResponseEntity<>(modelMapper.map(turno, TurnoDto.class), HttpStatus.CREATED);
+      return new ResponseEntity<TurnoDto>(turnoAux, HttpStatus.CREATED);
     }
 
 

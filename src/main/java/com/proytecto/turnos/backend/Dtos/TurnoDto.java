@@ -1,5 +1,7 @@
 package com.proytecto.turnos.backend.Dtos;
 
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 import java.io.Serializable;
