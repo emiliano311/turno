@@ -1,6 +1,8 @@
 package com.proytecto.turnos.backend.Dtos;
 
 import com.proytecto.turnos.backend.entities.Turno;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 
@@ -15,5 +17,6 @@ public class ClienteDto implements Serializable {
     private String dni;
     private String telefono;
     private String email;
-    private List<Turno> turnos;
+
+    private TurnoDto turno;
 }
