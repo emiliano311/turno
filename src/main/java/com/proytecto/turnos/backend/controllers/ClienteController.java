@@ -73,8 +73,6 @@ public class ClienteController {
         turno.setHora(turnoDto.getHora());
         turno.setCliente(cliente.get());
         // Cargar la lista de turnos del cliente
-
-
         // Guardar el turno
         turnoService.crearTurno(turno);
         clienteService.modificarCliente(cliente.get());
