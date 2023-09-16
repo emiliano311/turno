@@ -30,7 +30,7 @@ public class TurnoServiceImpl implements TurnoService{
     }
 
     @Override
-    public Optional<Turno> findTurnoById(Long id) {
+    public Optional<Turno> findById(Long id) {
         Optional turno = turnoRepository.findById(id);
         return turno;
     }

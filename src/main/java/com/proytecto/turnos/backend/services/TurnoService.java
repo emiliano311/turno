@@ -10,7 +10,7 @@ public interface TurnoService {
 
     public List<Turno> findAll();
     public Turno crearTurno(Turno turno);
-    public Optional<Turno> findTurnoById(Long id);
+    public Optional<Turno> findById(Long id);
     public Turno modificarTurno(Turno turno);
     public int eliminarTurno(Turno turno);
 
