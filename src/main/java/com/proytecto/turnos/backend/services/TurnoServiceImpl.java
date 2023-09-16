@@ -26,7 +26,7 @@ public class TurnoServiceImpl implements TurnoService{
      */
     @Override
     public Turno crearTurno(Turno turno) {
-        return turnoRepository.save(turno);
+        return turnoRepository.saveAndFlush(turno);
     }
 
     @Override
